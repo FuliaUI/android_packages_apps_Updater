@@ -41,9 +41,11 @@ import com.fuliaui.updater.misc.BuildInfoUtils;
 import com.fuliaui.updater.misc.Constants;
 import com.fuliaui.updater.misc.StringGenerator;
 import com.fuliaui.updater.misc.Utils;
+import com.fuliaui.updater.model.Update;
 import com.fuliaui.updater.model.UpdateInfo;
 import com.fuliaui.updater.model.UpdateStatus;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -122,8 +124,10 @@ public class UpdaterService extends Service {
                     setNotificationTitle(update);
                     handleInstallProgress(update);
                 } else if (UpdaterController.ACTION_UPDATE_REMOVED.equals(intent.getAction())) {
+                    final boolean isLocalUpdate = Update.LOCAL_ID.equals(downloadId);
                     Bundle extras = mNotificationBuilder.getExtras();
-                    if (downloadId.equals(extras.getString(UpdaterController.EXTRA_DOWNLOAD_ID))) {
+                    if (extras != null && !isLocalUpdate && downloadId.equals(
+                            extras.getString(UpdaterController.EXTRA_DOWNLOAD_ID))) {
                         mNotificationBuilder.setExtras(null);
                         UpdateInfo update = mUpdaterController.getUpdate(downloadId);
                         if (update.getStatus() != UpdateStatus.INSTALLED) {
@@ -408,7 +412,9 @@ public class UpdaterService extends Service {
 
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
                 boolean deleteUpdate = pref.getBoolean(Constants.PREF_AUTO_DELETE_UPDATES, false);
-                if (deleteUpdate) {
+                boolean isLocal = Update.LOCAL_ID.equals(update.getDownloadId());
+                // Always delete local updates
+                if (deleteUpdate || isLocal) {
                     mUpdaterController.deleteUpdate(update.getDownloadId());
                 }
 
