@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.fuliaui.updater;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -53,14 +53,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.BuildInfoUtils;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.fuliaui.updater.controller.UpdaterController;
+import com.fuliaui.updater.controller.UpdaterService;
+import com.fuliaui.updater.misc.BuildInfoUtils;
+import com.fuliaui.updater.misc.Constants;
+import com.fuliaui.updater.misc.StringGenerator;
+import com.fuliaui.updater.misc.Utils;
+import com.fuliaui.updater.model.UpdateInfo;
+import com.fuliaui.updater.model.UpdateStatus;
 
 import java.io.IOException;
 import java.text.DateFormat;
